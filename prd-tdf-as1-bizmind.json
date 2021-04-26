@@ -1,19 +1,19 @@
 {
-  "family": "prd-tdf-as1-5qlive",
+  "family": "prd-tdf-as1-bizmind",
   "taskRoleArn": "arn:aws:iam::593847806746:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::593847806746:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
-      "name": "app-5qlive",
+      "name": "app-bizmind",
       "image":
-        "593847806746.dkr.ecr.ap-southeast-1.amazonaws.com/5qlive:latest",
+        "997241066915.dkr.ecr.us-east-1.amazonaws.com/bizmind:latest",
       "cpu": 0,
       "memoryReservation": 1024,
       "portMappings": [
         {
-          "containerPort": 8080,
-          "hostPort": 8080,
+          "containerPort": 1212,
+          "hostPort": 1212,
           "protocol": "tcp"
         },
         {
@@ -26,7 +26,7 @@
       "environment": [],
       "mountPoints": [
         {
-          "sourceVolume": "prd-vol-as1-5qlive",
+          "sourceVolume": "prd-vol-as1-bizmind",
           "containerPath": "/var/ecs-volume"
         }
       ],
@@ -34,8 +34,8 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/prd-tdf-as1-5qlive",
-          "awslogs-region": "ap-southeast-1",
+          "awslogs-group": "/ecs/prd-tdf-as1-bizmind",
+          "awslogs-region": "ap-useast-1",
           "awslogs-stream-prefix": "ecs"
         }
       }
@@ -43,7 +43,7 @@
   ],
   "volumes": [
     {
-      "name": "prd-vol-as1-5qlive",
+      "name": "prd-vol-as1-bizmind",
       "host": {}
     }
   ],
