@@ -1,0 +1,54 @@
+{
+  "family": "prd-tdf-as1-5qlive",
+  "taskRoleArn": "arn:aws:iam::593847806746:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::593847806746:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "app-5qlive",
+      "image":
+        "593847806746.dkr.ecr.ap-southeast-1.amazonaws.com/5qlive:latest",
+      "cpu": 0,
+      "memoryReservation": 1024,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "mountPoints": [
+        {
+          "sourceVolume": "prd-vol-as1-5qlive",
+          "containerPath": "/var/ecs-volume"
+        }
+      ],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/prd-tdf-as1-5qlive",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "prd-vol-as1-5qlive",
+      "host": {}
+    }
+  ],
+  "cpu": "1024",
+  "memory": "2048",
+  "placementConstraints": [],
+  "requiresCompatibilities": ["FARGATE"]
+}
