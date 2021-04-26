@@ -1,0 +1,296 @@
+<div class="page-content header-clear-medium">   
+	<div ng-show="!account.showNewTransaction" data-card-height="200" class="card card-style rounded-m shadow-xl">
+        <div class="card-top text-left mt-4 ml-3">
+            <h1 class="color-white text-shadow-l font-32">{{ account.activeAccount.name }}</h1>
+        </div>
+        <div class="card-center mr-3 text-right">
+            <p class="color-white font-20 bold uppercase line-height-small text-uppercase text-shadow-l font-10 mb-0 pb-0 mt-n2">
+            	{{ account.activeAccount.id.substring(0,15).toUpperCase() }}
+            </p>
+        </div>
+        <div class="card-bottom line-height-small">
+            <div class="text-left ml-3 mb-4 text-shadow-l">
+                <p class="color-white font-10 font-800 text-uppercase text-shadow-large font-10 opacity-50 text-uppercase mb-n2">Account Type</p>
+                <p class="color-white font-10 font-700 text-uppercase text-shadow-large font-16 mb-0 pb-0">{{ account.activeAccount.type.readableName }}</p>
+            </div>
+        </div>
+        <div class="card-overlay bg-gradient opacity-70"></div>
+        <div class="card-overlay bg-gradient bg-gradient-magenta3 opacity-80"></div>
+    </div>  
+    <!-- <div ng-show="account.showNewTransaction" class="card card-style">
+        <div class="content">
+            <h1>{{ account.activeAccount.name }}</h1>
+            <p class="color-highlight font-12 mt-n3 pt-1 mb-2">{{ account.activeAccount.type.readableName }}</p>
+            <p>
+                {{ account.activeAccount.description }}
+            </p>
+        </div>
+    </div>  -->   
+    <div data-card-height="470" class="card card-style rounded-m shadow-xl" ng-show="account.showNewTransaction">
+        <div class="content px-1">
+            <div class="input-style input-style-1 input-required">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Transaction Category</h5>
+                <em><i class="fa fa-angle-down"></i></em>
+                <select class="font-12" name="type" required ng-model="account.createNewTransaction.category">
+                    <option ng-value="category.name" ng-repeat="category in account.transactionCategories">{{category.readableName}}</option>
+                </select>
+            </div>
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Amount</h5>
+                <em>(required)</em>
+                <input type="number" step="0.01" min="0.00" class="pl-0" placeholder="0.00"  ng-model="account.createNewTransaction.amount">
+            </div> 
+            
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Title</h5>
+                <em>(required)</em>
+                <input type="text" class="pl-0" placeholder="Transaction Title" ng-model="account.createNewTransaction.title">
+            </div>
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Notes</h5>
+                <em>(required)</em>
+                <input type="text" class="pl-0" placeholder="Transaction Note" ng-model="account.createNewTransaction.note">
+            </div> 
+            
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Transaction Type</h5>
+                <em>(required)</em>
+                <input type="text" class="pl-0" readonly ng-model="account.createNewTransaction.type">
+            </div>
+            
+            <div class="row mb-0 pt-0">
+    			<div class="col-9">
+		            <button ng-click="account.addNewTransaction()" class="pull-right btn btn-block btn-m bg-highlight rounded-sm text-uppercase font-800">
+		            	Add
+		            </button>
+		        </div>
+		        <div class="col-3">
+		            <button ng-click="account.toggleAddNewTransaction('none')" class="pull-right btn btn-block btn-m bg-red2-dark rounded-sm text-uppercase font-800">
+		            	<i class="fa fa-times"></i>
+		            </button>
+		        </div>
+		    </div>
+        </div>
+    </div>   
+       
+	<div class="row text-center mb-0 mt-n2">
+	    <a href="#" ng-click="account.toggleAddNewTransaction('CREDIT')" class="col-6 pr-0">
+	        <div class="card card-style mr-2 mb-3">
+	            <i class="fa fa-arrow-down color-blue2 fa-2x mt-3"></i>
+	            <h1 class="pt-2 font-18">Credit</h1>
+	            <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Add Funds</p>
+	        </div>
+	    </a>
+	    <a href="#" ng-click="account.toggleAddNewTransaction('DEBIT')" class="col-6 pl-0">
+	        <div class="card card-style ml-2 mb-3">
+	            <i class="fa fa-arrow-up color-red2-dark fa-2x mt-3"></i>
+	            <h1 class="pt-2 font-18">Debit</h1>
+	            <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Remove Funds</p>
+	        </div>
+	    </a>
+	</div>
+	
+	<div class="card card-style">
+	    <div class="content mb-0">
+	        <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">Account Standing</h4>
+	        <div class="d-flex">
+	            <div class="pr-4 align-self-center">
+	                <p class="font-600 color-highlight mb-n1">Balance</p>
+	                <h3 class="mb-2">{{account.activeAccount.currency.unit}}{{ root.currencyFormatter(account.accountTotal.toFixed(2)) }}</h3>
+	            </div>
+	            <div class="w-100 align-self-center pl-3">
+	                <h6 class="font-14 font-700">Income<span class="float-right color-green2-dark">{{account.activeAccount.currency.unit}}{{ root.currencyFormatter(account.accountTotalCredit.toFixed(2)) }}</span></h6>
+	                <div class="divider mb-2 mt-1"></div>
+	                <h6 class="font-14 font-700">Expenses<span class="float-right color-red2-dark">{{account.activeAccount.currency.unit}}{{ root.currencyFormatter(account.accountTotalDebit.toFixed(2)) }}</span></h6>
+	            </div>
+	        </div>      
+	        <div class="divider mt-2 mb-3"></div>
+	        <div class="row mb-0">
+	            <div class="col-4">
+	                <div class="mx-0 mb-3">
+	                    <h6 class="font-12 font-800 text-uppercase opacity-30">Cash</h6>
+	                    <h3 class="color-green2-dark font-14 font-700 mb-0">{{account.activeAccount.currency.unit}}{{ root.currencyFormatter(account.accountTotalCash.toFixed(2)) }}</h3>
+	                </div>
+	            </div>
+	            <div class="col-4 text-center">
+	                <div class="mx-0 mb-3">
+	                    <h6 class="font-12 font-800 text-uppercase opacity-30">Transfer</h6>
+	                    <h3 class="color-green1-light font-14 font-700 mb-0">{{account.activeAccount.currency.unit}}{{ root.currencyFormatter(account.accountTotalTransfer.toFixed(2)) }}</h3>
+	                </div>
+	            </div>
+	            <div class="col-4 pr-3 text-right">
+	                <div class="mx-0 mb-3">
+	                    <h6 class="font-12 font-800 text-uppercase opacity-30">Cheque</h6>
+	                    <h3 class="color-blue2-dark font-14 font-700 mb-0">{{account.activeAccount.currency.unit}}{{ root.currencyFormatter(account.accountTotalCheque.toFixed(2)) }}</h3>
+	                </div>
+	            </div>              
+	        </div>
+	    </div>            
+	</div>    
+	<!-- <div class="card card-style">
+	    <div class="content mb-0">
+	        <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">Transactions</h4>
+	        <div class="row mb-3">
+                <div class="col-6">
+                    <div class="input-style input-style-1 input-required">
+                        <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Payment Type</h5>
+                        <em><i class="fa fa-angle-down"></i></em>
+                        <select class="font-12">
+                            <option value="1" selected>All Payments</option>
+                            <option value="2">Sent Payments</option>
+                            <option value="3">Received Payments</option>
+                            <option value="4">Requested Payments</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-style input-style-1 input-required">
+                        <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Sort By</h5>
+                        <em><i class="fa fa-angle-down"></i></em>
+                        <select class="font-12">
+                            <option value="1" selected>All Transactions</option>
+                            <option value="2">Utility</option>
+                            <option value="2">Services</option>
+                            <option value="2">Personal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group list-custom-large">
+                <a ng-click="account.openTransaction(trx)" class="mt-n3" ng-repeat="trx in account.allTransactions">
+                    <i class="fa fa-arrow-{{trx.transactionType.name == 'DEBIT' ? 'up' : 'down'}} rounded-xl shadow-xl bg-{{trx.transactionType.name == 'DEBIT' ? 'red2' : 'blue2'}}-dark"></i>
+                    <span>{{trx.title}}</span>
+                    <strong>{{trx.note.substring(0,30)}}{{trx.note.length > 30 ? "..." : ""}}</strong>
+                    <span class="badge bg-{{trx.transactionType.name == 'DEBIT' ? 'red2' : 'blue2'}}-dark font-11">{{trx.amount.toFixed(2)}} USD</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+        	</div>
+	    </div>    
+	</div> -->
+	<div class="card card-style">
+        <div class="content mb-0">
+        	<h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">Transactions</h4>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="input-style input-style-1 input-required">
+                        <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Payment Type</h5>
+                        <em><i class="fa fa-angle-down"></i></em>
+                        <select class="font-12">
+                            <option value="1" selected>All Payments</option>
+                            <option value="2">Sent Payments</option>
+                            <option value="3">Received Payments</option>
+                            <option value="4">Requested Payments</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-style input-style-1 input-required">
+                        <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Sort By</h5>
+                        <em><i class="fa fa-angle-down"></i></em>
+                        <select class="font-12">
+                            <option value="1" selected>All Transactions</option>
+                            <option value="2">Utility</option>
+                            <option value="2">Services</option>
+                            <option value="2">Personal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <a ng-repeat="trx in account.allTransactions" ng-click="account.openTransaction(trx)" class="d-flex mb-3">
+            	<!-- <i class="like-list-boxes-a-i fa fa-arrow-{{trx.transactionType.name == 'DEBIT' ? 'up' : 'down'}} mr-1 rounded-xl shadow-xl bg-{{trx.transactionType.name == 'DEBIT' ? 'red2' : 'blue2'}}-dark"></i> -->
+            	<div class="align-self-center">
+            		<span style="height: 42px;" class="icon icon-s rounded-xl bg-{{trx.transactionType.name == 'DEBIT' ? 'red2' : 'blue2'}}-dark mr-3">
+            			<i class="fa fa-arrow-{{trx.transactionType.name == 'DEBIT' ? 'up' : 'down'}} font-18"></i>
+            		</span>
+            	</div>
+                <div class="align-self-center">
+                    <h1 class="mb-n2 font-16">{{trx.title}}</h1>
+                    <p class="font-11 opacity-60">{{trx.note.substring(0,30)}}{{trx.note.length > 30 ? "..." : ""}}</p>
+                </div>
+                <div class="align-self-center ml-auto text-right">
+                    <h6 class="mb-n1 font-14 font-700 color-{{trx.transactionType.name == 'DEBIT' ? 'red2' : 'blue2'}}-dark">{{account.activeAccount.currency.unit}} {{trx.amount.toFixed(2)}}</h6>
+                    <p class="font-12 opacity-50">{{trx.category.readableName}}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+	
+	<div class="card card-style" ng-show="!account.showEditAccount">
+        <div class="content">
+            <div class="row mb-0 pt-0">
+    			<div class="col-12">
+    				<div class="d-flex">
+                        <div class="flex-fill mr-1">
+		                	<a href="#" ng-click="account.toggleEdit()" class="btn btn-full btn-m bg-blue1-dark rounded-sm text-uppercase font-800 mt-3">
+		                		Edit
+		                	</a>
+		                </div>
+		                
+		                <div class="flex-fill">
+		                	<a href="#" ng-click="account.deleteAccount()" class="btn btn-full btn-m bg-red2-dark rounded-sm text-uppercase font-800 mt-3">
+		                		Delete
+		                	</a>
+		                </div>
+		            </div>
+                </div>
+			</div>
+     	</div>
+    </div>   
+    <div data-card-height="370" class="card card-style rounded-m shadow-xl" ng-show="account.showEditAccount">
+        <div class="content px-1">
+            <div class="input-style input-style-1 input-required">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Account Type</h5>
+                <em><i class="fa fa-angle-down"></i></em>
+                <select class="font-12" name="type" ng-model="account.activeAccount.type.name">
+                    <option ng-value="type.name" ng-repeat="type in account.accountTypes">{{type.readableName}}</option>
+                </select>
+            </div>
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Account Name</h5>
+                <em>(required)</em>
+                <input type="text" class="pl-0" placeholder="Account Name" ng-model="account.activeAccount.name">
+            </div>
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Account Description</h5>
+                <em>(required)</em>
+                <input type="text" class="pl-0" placeholder="Account Description" ng-model="account.activeAccount.description">
+            </div>       
+            <div class="input-style input-style-1 input-required">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Currency</h5>
+                <em><i class="fa fa-angle-down"></i></em>
+                <select class="font-12" name="type" ng-model="account.activeAccount.currency">
+                    <option ng-value="currency" ng-repeat="currency in account.currencies">{{currency.name}}</option>
+                </select>
+            </div>  
+                     
+            <div class="row mb-0 pt-0">
+    			<div class="col-9">
+		            <button ng-click="account.updateAccount()" class="pull-right close-menu btn btn-block btn-m bg-highlight rounded-sm text-uppercase font-800">
+		            	Update
+		            </button>
+		        </div>
+		        <div class="col-3">
+		            <button ng-click="account.toggleEdit()" class="pull-right btn btn-block btn-m bg-red2-dark rounded-sm text-uppercase font-800">
+		            	<i class="fa fa-times"></i>
+		            </button>
+		        </div>
+		    </div>
+            
+        </div>
+    </div>   
+	   
+    <div class="footer card card-style">
+        <div class="text-center mb-3">
+            <a href="#" class="back-to-top icon icon-xs rounded-sm shadow-l bg-dark1-light">
+            	<i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+        <p class="footer-copyright">Copyright &copy; Enabled <span id="copyright-year">2017</span>. All Rights Reserved.</p>
+        <p class="footer-links"><a href="#" class="color-highlight">Privacy Policy</a> | <a href="#" class="color-highlight">Terms and Conditions</a> | <a href="#" class="back-to-top color-highlight"> Back to Top</a></p>
+        <div class="clear"></div>
+    </div>    
+	    
+</div>
+<!-- End of Page Content--> 
+	
+<script type="text/javascript" src="/scripts/custom.js"></script>

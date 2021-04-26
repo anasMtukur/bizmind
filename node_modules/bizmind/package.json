@@ -1,0 +1,38 @@
+{
+  "name": "bizmind",
+  "version": "1.0.0",
+  "description": "Bizmind Application for Personal and Business Finance Planning",
+  "main": "index.js",
+  "scripts": {
+    "dev:watch": "npm run dev:watch-static & npm run dev:watch-ts",
+    "dev:watch-ts": "nodemon -e ts --watch ts -x 'npm run dev:compile-ts'",
+    "dev:compile-ts": "tsc --project tsconfig.json",
+    "dev:watch-static": "nodemon -e css,js,html --watch ../src/main/resources/static -x 'npm run dev:copy-static'",
+    "dev:copy-static": "cp -r ../src/main/resources/static/* ../target/classes/static/",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "anasmtukur91@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^2.6.2"
+  },
+  "devDependencies": {
+    "@types/angular": "^1.7.3",
+    "@types/angular-route": "^1.3.4",
+    "@types/angular-cookies": "^1.7.3",
+    "@types/angular-material": "^1.1.57",
+    "@types/angular-ui-router": "^1.1.40",
+    "@types/google.analytics": "0.0.39",
+    "@types/hopscotch": "^0.2.30",
+    "@types/html2canvas": "^0.5.35",
+    "@types/is": "0.0.21",
+    "@types/jquery": "3.3.31",
+    "@types/jspdf": "^1.1.31",
+    "@types/lodash": "4.14.116",
+    "@types/modernizr": "^3.5.1",
+    "@types/moment": "^2.13.0",
+    "nodemon": "^2.0.4",
+    "prettier": "2.0.5"
+  }
+}

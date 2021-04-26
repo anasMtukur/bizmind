@@ -1,0 +1,43 @@
+<div class="page-content header-clear-medium">
+    <div class="card card-style">
+        <div class="content mt-4 mb-0">
+            <h1 class="text-center font-900 font-40 text-uppercase mb-0">Login</h1>
+            <p class="bottom-0 text-center color-highlight font-11">Let's get you logged in{{login.session.getName()}}</p>
+
+            <div class="input-style has-icon input-style-1 input-required pb-1">
+                <i class="input-icon fa fa-user color-theme"></i>
+                <span>Username</span>
+                <em>(required)</em>
+                <input type="text" ng-model="login.loginPayload.username" placeholder="Username">
+            </div> 
+            <div class="input-style has-icon input-style-1 input-required pb-1">
+                <i class="input-icon fa fa-lock color-theme"></i>
+                <span>Password</span>
+                <em>(required)</em>
+                <input type="password" ng-model="login.loginPayload.password" placeholder="Password">
+            </div> 
+
+            <button ng-click="login.signin()" class="btn btn-m mt-2 mb-4 btn-block bg-green1-dark text-uppercase font-900">Login</button>
+
+            <div class="divider"></div>
+
+            <button ng-click="root.goState('root.user.register')" class="btn btn-icon btn-m btn-full btn-block shadow-l bg-facebook text-uppercase font-900 text-left"><i class="fab fa-facebook-f text-center"></i>Register Now</button>
+            <button ng-click="root.goState('root.user.reset')" class="btn btn-icon btn-m mt-2 btn-full  btn-block shadow-l bg-twitter text-uppercase font-900 text-left"><i class="fab fa-twitter text-center"></i>Reset Password</button>
+
+            <div class="divider mt-4 mb-3"></div>
+
+            <!-- <div class="d-flex">
+                <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-left">
+                	<a ui-sref="root.user.register" ui-sref-opts="{reload: true, notify: true}" class="color-theme">Create Account</a>
+                </div>
+                <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-right">
+                	<a ui-sref="root.user.reset" ui-sref-opts="{reload: true, notify: true}" class="color-theme">Forgot Credentials</a>
+                </div>
+            </div> -->
+        </div>
+        
+    </div>  
+
+</div>
+<!-- End of Page Content--> 
+<script type="text/javascript" src="/scripts/custom.js"></script>

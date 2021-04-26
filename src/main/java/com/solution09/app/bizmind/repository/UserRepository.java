@@ -1,0 +1,14 @@
+package com.solution09.app.bizmind.repository;
+
+import java.util.Optional;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.solution09.app.bizmind.models.User;
+
+public interface UserRepository extends MongoRepository<User, String> {
+  Optional<User> findByUsername(String username);
+  
+  Boolean existsByUsername(String username);
+
+  Boolean existsByEmail(String email);
+}

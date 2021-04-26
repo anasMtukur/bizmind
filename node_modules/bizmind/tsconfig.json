@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "target": "es5",
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "outFile": "../src/main/resources/static/index.js",
+    "lib": [
+        "es2015",
+        "es2015.iterable",
+        "dom",
+        "scripthost"
+    ]
+  },
+  "compileOnSave": true,
+  "include": ["./ts/**/*.ts"],
+  "files": [
+    "./ts/index.ts",
+    "./ts/run.ts",
+    "./ts/session.ts",
+    "./ts/jwt.ts",
+    "./ts/filters.ts",
+    "./ts/controller/home.ts",
+    "./ts/controller/root.ts",
+    "./ts/controller/user/home.ts",
+    "./ts/controller/user/login.ts",
+    "./ts/controller/user/dashboard.ts"
+  ]
+}
