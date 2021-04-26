@@ -1,7 +1,7 @@
 {
   "family": "prd-tdf-as1-bizmind",
-  "taskRoleArn": "arn:aws:iam::593847806746:role/ecsTaskExecutionRole",
-  "executionRoleArn": "arn:aws:iam::593847806746:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam:997241066915:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::997241066915:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
