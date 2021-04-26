@@ -1,7 +1,7 @@
 FROM openjdk:12
 VOLUME /tmp
-RUN apk update \
- && apk add jq curl
+RUN apt-get update \
+ && apt-get -yq install jq curl
 COPY target/*.jar bizmind-0.0.1.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=prod","-jar","/bizmind-0.0.1.jar"]
 EXPOSE 1212
